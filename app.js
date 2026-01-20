@@ -56,16 +56,38 @@
 // });
 
 // Multiple Route Handlers
+// const express = require('express');
+// const app = express();
+// const port = 3000;
+
+// app.get('/example/b', (req, res, next) => {
+//   console.log('First handler executed. ');
+//   next();
+// }, (req, res) => {
+//   res.send('Second handler executed.');
+// });
+
+// app.listen(port, () => {
+//   console.log(`Server is running at http://localhost:${port}`);
+// });
+
+// array of handlers
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = 3000;      
+const cb0 = function (req, res, next) {
+  console.log('Callback 0')
+  next()
+}
+const cb1 = (req, res, next) =>{
+  console.log('Callback 1')
+  next()
+}
+const cb2 = (req, res)=> {
+  res.send('Hello from Callback 2')
+}
+app.get('/example', [cb0, cb1, cb2])
 
-app.get('/example/b', (req, res, next) => {
-  console.log('First handler executed. ');
-  next();
-}, (req, res) => {
-  res.send('Second handler executed.');
-});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
